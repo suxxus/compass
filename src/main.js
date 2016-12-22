@@ -38,7 +38,6 @@
 
          var width = container.offsetWidth;
 
-         console.log(width);
          if (width >= minWidthToShowCompass) {
 
              containerClientRec = container.getBoundingClientRect();
