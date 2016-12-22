@@ -40,7 +40,6 @@
 
          if (width >= minWidthToShowCompass) {
 
-             containerClientRec = container.getBoundingClientRect();
              axisX = containerClientRec.width / 2;
              axisY = containerClientRec.height / 2;
 
@@ -52,7 +51,6 @@
          container.removeEventListener('mousemove', mousemoveEvtListener);
 
      };
-
 
      var onDomContentLoaded = function() {
 
