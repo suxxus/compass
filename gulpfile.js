@@ -22,19 +22,16 @@ gulp.task('copy:js', function() {
         .pipe(gulp.dest('./build'));
 });
 
+gulp.task('copy:markup', function() {
+    return gulp.src('./src/**/*.html')
+        .pipe(gulp.dest('./build'));
+});
+
 gulp.task('css:lint', function() {
     return gulp.src('./src/styles/*.css')
         .pipe(csslint())
         .pipe(csslint.formatter());
 });
-
-gulp.task('markup', function(cb) {
-    exec('npm run build:markup', function(err, stdout, stderr) {
-        console.log('stdout', stdout);
-        console.log('stderr ', stderr);
-        cb(err);
-    });
-})
 
 gulp.task('postcss', function() {
     var processors = [
@@ -49,12 +46,12 @@ gulp.task('build', [
     'clean:build',
     'copy:css',
     'copy:js',
+    'copy:markup',
     'postcss',
-    'markup'
 ]);
 
 gulp.task('watch', function() {
-     watch('src/**/*', batch(function(events, done) {
+    watch('src/**/*', batch(function(events, done) {
         gulp.start('build', done);
     }));
 });

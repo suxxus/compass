@@ -1,57 +1,43 @@
 {
-  "name": "css-studies-compass",
-  "version": "0.0.0",
-  "description": "web design",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/suxxus/compass"
-  },
-  "prj": {
-    "title": "compass",
-    "dependencies": [
-      "https://use.fontawesome.com/685528bd79.js",
-      "main.js"
-    ],
-    "styledependencies": [
-      "https://fonts.googleapis.com/css?family=Domine",
-      "styles/compass.css"
+    "name": "css-studies-compass",
+    "version": "0.0.0",
+    "description": "web design",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/suxxus/compass"
+    },
+    "devDependencies": {
+        "autoprefixer": "6.5.4",
+        "browser-sync": "2.18.5",
+        "csslint": "1.0.5",
+        "del": "2.2.2",
+        "gulp": "3.9.1",
+        "gulp-batch": "1.0.5",
+        "gulp-clean-css": "2.3.2",
+        "gulp-csslint": "1.0.0",
+        "gulp-htmlmin": "3.0.0",
+        "gulp-plumber": "1.1.0",
+        "gulp-postcss": "6.2.0",
+        "gulp-watch": "4.3.11",
+        "proxy-middleware": "0.15.0",
+        "updtr": "0.2.3",
+        "watch-cli": "0.2.1"
+    },
+    "engines": {
+        "node": ">=5.10.0",
+        "npm": ">=3.8.0"
+    },
+    "scripts": {
+        "browsersync": "node browser-sync",
+        "build": "gulp build",
+        "dev": "gulp dev",
+        "check": "npm outdated --depth=0",
+        "start": "npm run browsersync",
+        "update": "updtr"
+    },
+    "author": "SUXXUS",
+    "license": "ISC",
+    "keywords": [
+        "studies, css"
     ]
-  },
-  "devDependencies": {
-    "autoprefixer": "6.5.4",
-    "browser-sync": "2.18.5",
-    "csslint": "1.0.5",
-    "del": "2.2.2",
-    "gulp": "3.9.1",
-    "gulp-batch": "1.0.5",
-    "gulp-clean-css": "2.3.2",
-    "gulp-csslint": "1.0.0",
-    "gulp-htmlmin": "3.0.0",
-    "gulp-jade": "1.1.0",
-    "gulp-plumber": "1.1.0",
-    "gulp-postcss": "6.2.0",
-    "gulp-watch": "4.3.11",
-    "jade": "1.11.0",
-    "proxy-middleware": "0.15.0",
-    "updtr": "0.2.3",
-    "watch-cli": "0.2.1"
-  },
-  "engines": {
-    "node": ">=5.10.0",
-    "npm": ">=3.8.0"
-  },
-  "scripts": {
-    "browsersync": "node browser-sync",
-    "build:markup": "jade src/index.jade --obj package.json --pretty --out build",
-    "build": "gulp build",
-    "dev": "gulp dev",
-    "check": "npm outdated --depth=0",
-    "start": "npm run browsersync",
-    "update": "updtr"
-  },
-  "author": "SUXXUS",
-  "license": "ISC",
-  "keywords": [
-    "studies, css"
-  ]
 }
