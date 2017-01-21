@@ -1,16 +1,16 @@
-var gulp = require('gulp'),
+var fs = require('fs'),
+    gulp = require('gulp'),
     del = require('del'),
     batch = require('gulp-batch'),
     postcss = require('gulp-postcss'),
-    autoprefixer = require('autoprefixer'),
+    cssnext = require('postcss-cssnext'),
+    atImport = require("postcss-import"),
     csslint = require('gulp-csslint'),
-    exec = require('child_process').exec,
     watch = require('gulp-watch');
 
 gulp.task('clean:build', function() {
     return del('./build/**/*');
 });
-
 
 gulp.task('copy:css', function() {
     return gulp.src('./src/**/main.css')
@@ -34,8 +34,10 @@ gulp.task('css:lint', function() {
 });
 
 gulp.task('postcss', function() {
+
     var processors = [
-        autoprefixer({ browsers: ['> 5%'] })
+        cssnext({ browsers: ['> 5%'] }),
+        atImport()
     ];
     return gulp.src('./src/**/compass.css')
         .pipe(postcss(processors))
@@ -44,7 +46,6 @@ gulp.task('postcss', function() {
 
 gulp.task('build', [
     'clean:build',
-    'copy:css',
     'copy:js',
     'copy:markup',
     'postcss',
