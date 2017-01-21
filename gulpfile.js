@@ -4,7 +4,9 @@ var fs = require('fs'),
     batch = require('gulp-batch'),
     postcss = require('gulp-postcss'),
     cssnext = require('postcss-cssnext'),
-    atImport = require("postcss-import"),
+    pxtorem = require('postcss-pxtorem-plus'),
+    customMedia = require('postcss-custom-media'),
+    atImport = require('postcss-import'),
     csslint = require('gulp-csslint'),
     watch = require('gulp-watch');
 
@@ -36,8 +38,10 @@ gulp.task('css:lint', function() {
 gulp.task('postcss', function() {
 
     var processors = [
+        atImport(),
         cssnext({ browsers: ['> 5%'] }),
-        atImport()
+        customMedia(),
+        pxtorem({ mediaQuery: true })
     ];
     return gulp.src('./src/**/compass.css')
         .pipe(postcss(processors))
