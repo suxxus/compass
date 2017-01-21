@@ -70,6 +70,6 @@
 
      };
 
-     document.addEventListener("DOMContentLoaded", onDomContentLoaded);
+//     document.addEventListener("DOMContentLoaded", onDomContentLoaded);
 
  }());
