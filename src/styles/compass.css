@@ -85,7 +85,7 @@ li {
         padding-bottom: 12px;
         font-size: 34px;
     }
-    & ul {
+    /* & ul {
         width: 100%;
     }
     & li {
@@ -93,16 +93,21 @@ li {
     }
     & li:hover {
         background-color: #C26060;
-    }
+    }*/
     & a {
-        line-height: 25px;
+        display: block;
+        line-height: 35px;
+        margin-bottom: 15px;
+    }
+    & a:hover {
+        background-color: #C26060;
     }
 }
 
 @media (--phone-landscape) {
     .mod-compass-custom-phone-landscape {
-        & li {
-            padding: 5px 10px;
+        & a {
+            margin-bottom: 0px;
         }
     }
 }
