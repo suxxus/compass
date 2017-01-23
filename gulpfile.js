@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    gulp = require('gulp'),
+var gulp = require('gulp'),
     del = require('del'),
     batch = require('gulp-batch'),
     postcss = require('gulp-postcss'),
@@ -19,6 +18,11 @@ gulp.task('copy:css', function() {
         .pipe(gulp.dest('./build'));
 });
 
+gulp.task('copy:assets', function() {
+    return gulp.src('./src/assets/compass-art.svg')
+        .pipe(gulp.dest('./build'));
+});
+
 gulp.task('copy:js', function() {
     return gulp.src('./src/**/*.js')
         .pipe(gulp.dest('./build'));
@@ -29,12 +33,6 @@ gulp.task('copy:markup', function() {
         .pipe(gulp.dest('./build'));
 });
 
-gulp.task('css:lint', function() {
-    return gulp.src('./src/styles/*.css')
-        .pipe(csslint())
-        .pipe(csslint.formatter());
-});
-
 gulp.task('postcss', function() {
 
     var processors = [
@@ -43,15 +41,18 @@ gulp.task('postcss', function() {
         customMedia(),
         pxtorem({ mediaQuery: true })
     ];
+
     return gulp.src('./src/**/compass.css')
         .pipe(postcss(processors))
         .pipe(gulp.dest('./build'));
+
 });
 
 gulp.task('build', [
     'clean:build',
     'copy:js',
     'copy:markup',
+    'copy:assets',
     'postcss',
 ]);
 
