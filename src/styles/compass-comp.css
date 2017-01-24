@@ -1,0 +1,52 @@
+/**
+*----------------------
+* COMPASS COMPONENT
+*----------------------
+*/
+
+.mod-compass {
+    & a {
+        text-decoration: none;
+        color: inherit;
+    }
+    & div:nth-child(3) {
+        display: none;
+    }
+    & .mod-compass-graph-container {
+        position: relative;
+        width: 100%;
+    }
+    & .txt-cont {
+        top: 30%;
+        left: 25%;
+        width: 50%;
+        height: 40%;
+        position: absolute;
+        text-align: center;
+        font-size: 34px;
+        color: white;
+    }
+}
+
+@media (--medium) {
+    html {
+        font-size: 1.7vw;
+    }
+    .mod-compass-tablet {
+        height: 100%;
+        display: flex;
+        & > h2 {
+            display: none;
+        }
+        & div {
+            width: 33%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        & div:nth-child(3) {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
