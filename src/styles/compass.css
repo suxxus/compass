@@ -14,7 +14,7 @@
 *----------------------
 */
 
-@custom-media --small (min-width: 544px);
+@custom-media --small-landscape (min-width: 544px);
 @custom-media --medium (min-width: 768px);
 
 /**
@@ -25,4 +25,69 @@
 
 :root {
     --terra-color: darkred;
+}
+
+
+/**
+*---------------------
+* GENERAL USE
+*---------------------
+*/
+
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/**
+*--------------------------------------------------
+*/
+
+.terra-bkg {
+    background-color: var(--terra-color);
+}
+
+.musgo-bkg {
+    background-color: darkseagreen;
+}
+
+.section {
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/**
+*--------------------------------------------------
+*/
+
+.compass-mod-container {
+    font-family: "Domine";
+    color: white;
+    text-align: center;
+    & h2 {
+        font-size: 34px;
+        padding-bottom: 12px;
+    }
+    & a {
+        display: block;
+        line-height: 35px;
+        margin-bottom: 15px;
+    }
+    & a:hover {
+        background-color: #C26060;
+    }
+}
+
+@media (--small-landscape) {
+    .mod-compass-small-landscape {
+        & h2 {
+            font-size: 34px;
+        }
+        & a {
+            margin-bottom: 0px;
+        }
+    }
 }
