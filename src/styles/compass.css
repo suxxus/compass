@@ -63,7 +63,7 @@
 *--------------------------------------------------
 */
 
-.compass-mod-container {
+.mod-compass-container {
     font-family: "Domine";
     color: white;
     text-align: center;
@@ -79,6 +79,12 @@
     & a:hover {
         background-color: #C26060;
     }
+    & svg {
+        fill: white;
+    }
+    & path:nth-child(1) {
+        fill: #B17575;
+    }
 }
 
 @media (--small-landscape) {
@@ -88,6 +94,18 @@
         }
         & a {
             margin-bottom: 0px;
+        }
+    }
+}
+
+@media(--medium) {
+    .mod-compass-medium {
+        height: 70%;
+        width: 75%;
+        margin: 0 auto;
+        & > div div:nth-child(3) div {
+            font-size: 26px;
+            color: var(--terra-color);
         }
     }
 }
