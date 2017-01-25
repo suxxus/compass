@@ -1,75 +1,57 @@
  'use strict';
- (function() {
+ (function(win) {
 
-     var $qs = document.querySelector.bind(document),
-         minWidthToShowCompass = 1150,
-         containerClientRec,
-         container,
-         compass,
-         axisX,
-         axisY;
+     var $qs = win.document.querySelector.bind(document);
+     var smallDevice = 751;
 
-     var transformElm = function(degree) {
+     var $compassContainer = $qs('#compass-container');
+     var $compassGraphic = $qs('#compass-container svg')
 
-         var vendors = ['-moz-transform', '-webkit-transform', '-o-transform', '-ms-transform', 'transform'];
-         var cssText = '';
+     var mouseOverEvtListener = function(e) {
 
-         vendors.forEach(function(item) {
-             cssText += item + ': rotate(' + degree + 'deg)'
-             cssText += ';';
-         });
-
-         compass.style.cssText = cssText;
-
-     };
-
-     var mousemoveEvtListener = function(evt) {
-
-         var posX = evt.pageX - axisX;
-         var posY = evt.pageY - axisY;
-         var radians = Math.atan2(posX, posY);
-         var degree = (radians * (180 / Math.PI) * -1) + 180 - 45;
-
-         transformElm(degree);
-
-     };
-
-     var resize = function() {
-
-         var width = container.offsetWidth;
-
-         if (width >= minWidthToShowCompass) {
-
-             axisX = containerClientRec.width / 2;
-             axisY = containerClientRec.height / 2;
-
-             container.addEventListener('mousemove', mousemoveEvtListener);
-
+         if (document.documentElement.clientWidth <= smallDevice) {
              return;
          }
 
-         container.removeEventListener('mousemove', mousemoveEvtListener);
+         var containerRect = $compassContainer.getBoundingClientRect();
+         var axisX = containerRect.width / 2;
+         var axisY = containerRect.height / 2;
+         var posX = (e.pageX - containerRect.left) - axisX;
+         var posY = (e.pageY - containerRect.top) - axisY;
+         var radians = Math.atan2(posX, posY);
+         var degree = Math.round((radians * (180 / Math.PI) * -1) + 180 - 45);
+         var className = [].slice.call($compassContainer.classList)
+             .concat('help-item-is-selected').join(' ');
+
+         $compassGraphic.style.cssText = 'transform:rotate(' + degree + 'deg); transition: transform 2s;';
+         $compassContainer.className = className;
+
+     };
+
+     var mouseOutListener = function() {
+
+         var className = [].slice.call($compassContainer.classList)
+             .filter(function(item) {
+                 return item !== 'help-item-is-selected'
+             })
+             .join(' ');
+         $compassContainer.className = className;
+
+     };
+
+     var addAnchorEventListeners = function() {
+
+         win.delegate($compassContainer, 'a', 'mouseover', mouseOverEvtListener, false);
+         win.delegate($compassContainer, 'a', 'mouseout', mouseOutListener, false);
 
      };
 
      var onDomContentLoaded = function() {
 
-         container = $qs('.main-container');
-         compass = $qs('#pointer-wrapp .compass');
-         containerClientRec = container.getBoundingClientRect();
-
-         if (containerClientRec.width >= minWidthToShowCompass) {
-
-             axisX = containerClientRec.width / 2;
-             axisY = containerClientRec.height / 2;
-
-             container.addEventListener('mousemove', mousemoveEvtListener);
-         }
-
-         window.onresize = resize;
+         addAnchorEventListeners();
 
      };
 
-//     document.addEventListener("DOMContentLoaded", onDomContentLoaded);
+     win.document.addEventListener("DOMContentLoaded", onDomContentLoaded);
 
- }());
+ }(window));
