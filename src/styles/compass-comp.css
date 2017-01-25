@@ -25,13 +25,13 @@
         text-align: center;
         font-size: 34px;
         color: white;
+        &:before {
+            content: 'Lorem ipsum dolor';
+        }
     }
 }
 
 @media (--medium) {
-    html {
-        font-size: 1.7vw;
-    }
     .mod-compass-tablet {
         height: 100%;
         display: flex;
@@ -45,6 +45,7 @@
             justify-content: space-between;
         }
         & div:nth-child(3) {
+            width: 34%;
             display: flex;
             justify-content: center;
         }
