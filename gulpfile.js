@@ -39,7 +39,6 @@ gulp.task('postcss', function() {
         atImport(),
         cssnext({ browsers: ['> 5%'] }),
         customMedia(),
-        pxtorem({ mediaQuery: true })
     ];
 
     return gulp.src('./src/**/compass.css')
@@ -52,7 +51,6 @@ gulp.task('build', [
     'clean:build',
     'copy:js',
     'copy:markup',
-    'copy:assets',
     'postcss',
 ]);
 
