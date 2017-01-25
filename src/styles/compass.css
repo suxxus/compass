@@ -25,6 +25,8 @@
 
 :root {
     --terra-color: darkred;
+    --help-items-color: #C26060;
+    --pale-salmon-color: #EBC1C1;
 }
 
 
@@ -47,10 +49,6 @@
 
 .terra-bkg {
     background-color: var(--terra-color);
-}
-
-.musgo-bkg {
-    background-color: darkseagreen;
 }
 
 .section {
@@ -80,13 +78,31 @@
         padding: 0 10px;
     }
     & a:hover {
-        background-color: #C26060;
+        background-color: var(--help-items-color);
     }
     & svg {
         fill: white;
     }
     & path:nth-child(1) {
-        fill: #B17575;
+        fill: var(--pale-salmon-color);
+    }
+}
+
+.help-item-is-selected {
+    & path:nth-child(1) {
+        animation: pulse;
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        fill: var(--pale-salmon-color);
+    }
+    100% {
+        fill: var(--help-items-color);
     }
 }
 
@@ -112,6 +128,9 @@
             &:before {
                 content: 'What do we do to help';
             }
+        }
+        & > div a {
+            font-size: 18px;
         }
     }
 }
