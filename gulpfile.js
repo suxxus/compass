@@ -3,24 +3,12 @@ var gulp = require('gulp'),
     batch = require('gulp-batch'),
     postcss = require('gulp-postcss'),
     cssnext = require('postcss-cssnext'),
-    pxtorem = require('postcss-pxtorem-plus'),
     customMedia = require('postcss-custom-media'),
     atImport = require('postcss-import'),
-    csslint = require('gulp-csslint'),
     watch = require('gulp-watch');
 
 gulp.task('clean:build', function() {
     return del('./build/**/*');
-});
-
-gulp.task('copy:css', function() {
-    return gulp.src('./src/**/main.css')
-        .pipe(gulp.dest('./build'));
-});
-
-gulp.task('copy:assets', function() {
-    return gulp.src('./src/assets/compass-art.svg')
-        .pipe(gulp.dest('./build'));
 });
 
 gulp.task('copy:js', function() {
