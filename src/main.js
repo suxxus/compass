@@ -3,9 +3,7 @@
 
      var $qs = win.document.querySelector.bind(document);
      var smallDevice = 751;
-
-     var $compassContainer = $qs('#compass-container');
-     var $compassGraphic = $qs('#compass-container svg')
+     var $compassContainer, $compassGraphic;
 
      var mouseOverEvtListener = function(e) {
 
@@ -48,6 +46,8 @@
 
      var onDomContentLoaded = function() {
 
+         $compassContainer = $qs('#compass-container');
+         $compassGraphic = $qs('#compass-container svg')
          addAnchorEventListeners();
 
      };
