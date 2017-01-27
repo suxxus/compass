@@ -47,11 +47,11 @@
          }
      };
 
-     var mouseOutListener = function($compassContainer) {
+     var removeClassName = function(item) {
+         return item !== 'help-item-is-selected';
+     };
 
-         var removeClassName = function(item) {
-             return item !== 'help-item-is-selected';
-         };
+     var mouseOutListener = function($compassContainer) {
 
          return function() {
              $compassContainer.className = [].slice
