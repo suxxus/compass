@@ -1,0 +1,24 @@
+{
+  "extends": "defaults",
+  "globals":{
+    "window": true
+  },
+  "env": {
+    "node": false
+  },
+  "rules": {
+    "quotes": [
+      2,
+      "single",
+      "avoid-escape"
+    ],
+    "func-style": [
+      2,
+      "expression"
+    ],
+    "no-trailing-spaces": [
+      0
+    ]
+  }
+}
+
