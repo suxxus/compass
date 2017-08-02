@@ -1,76 +1,72 @@
  'use strict';
  (function(win) {
-
-     var Box = function(x) {
-         return {
-             map: function(f) {
-                 return Box(f(x));
-             },
-             fold: function(f) {
-                 return f(x);
-             }
-         };
+   var Box = function(x) {
+     return {
+       map: function(f) {
+         return Box(f(x));
+       },
+       fold: function(f) {
+         return f(x);
+       }
      };
+   };
 
-     var mouseOverEvtListener = function($compassContainer, $compassGraphic) {
-
-         var smallDevice = 751;
-
-         return function(e) {
-
-             if (win.document.documentElement.clientWidth <= smallDevice) {
-                 return;
-             }
-
-             $compassGraphic.style.cssText = Box($compassContainer.getBoundingClientRect())
-                 .map(function(containerRect) {
-                     return {
-                         x: (e.pageX - containerRect.left) - containerRect.width / 2,
-                         y: (e.pageY - containerRect.top) - containerRect.height / 2
-                     }
-                 })
-                 .map(function(positions) {
-                     return Math.atan2(positions.x, positions.y)
-                 })
-                 .map(function(radians) {
-                     return Math.round((radians * (180 / Math.PI) * -1) + 180 - 45);
-                 })
-                 .fold(function(degree) {
-                     return 'transform:rotate(' + degree + 'deg); transition: transform 2s;';
-                 });
-
-             $compassContainer.className = [].slice
-                 .call($compassContainer.classList)
-                 .concat('help-item-is-selected')
-                 .join(' ');
-
-         }
+   var checkIfIsSmallDevice = function(minSize) {
+     return function() {
+       return win.document.documentElement.clientWidth <= minSize;
      };
+   };
 
-     var removeClassName = function(item) {
-         return item !== 'help-item-is-selected';
+   var mouseOverEvtListener = function(box, isSmallSize, $compassContainer, $compassGraphic) {
+     return function(e) {
+       if (isSmallSize()) return;
+
+       box($compassContainer.getBoundingClientRect())
+         .map(function(containerRect) {
+           return {
+             x: (e.pageX - containerRect.left) - containerRect.width / 2,
+             y: (e.pageY - containerRect.top) - containerRect.height / 2
+           }
+         })
+         .map(function(positions) {
+           return Math.atan2(positions.x, positions.y)
+         })
+         .map(function(radians) {
+           return Math.round((radians * (180 / Math.PI) * -1) + 180 - 45);
+         })
+         .map(function(degree) {
+           return 'transform:rotate(' + degree + 'deg); transition: transform 2s;';
+         })
+         .map(function(cssText) {
+           $compassGraphic.style.cssText = cssText;
+           return 'help-item-is-selected';
+         })
+         .fold(function(className) {
+           $compassContainer.classList.add(className);
+         });
      };
+   }
 
-     var mouseOutListener = function($compassContainer) {
+   var mouseOutListener = function($compassContainer) {
+     return function() {
+       $compassContainer.classList.remove('help-item-is-selected');
+     }
+   };
 
-         return function() {
-             $compassContainer.className = [].slice
-                 .call($compassContainer.classList)
-                 .filter(removeClassName)
-                 .join(' ');
-         }
-     };
+   var $qs = function(selector) { return win.document.querySelector.bind(win.document)(selector) };
 
-     var onDomContentLoaded = function() {
+   var onDomContentLoaded = function() {
+     win.delegate($qs('#compass-container'), 'a', 'mouseover',
+       mouseOverEvtListener(
+         Box,
+         checkIfIsSmallDevice(751),
+         $qs('#compass-container'),
+         $qs('#compass-container svg')
+       ),
+       false);
 
-         var $qs = win.document.querySelector.bind(document),
-             $compassContainer = $qs('#compass-container'),
-             $compassGraphic = $qs('#compass-container svg');
+     win.delegate($qs('#compass-container'), 'a', 'mouseout', mouseOutListener($qs('#compass-container')), false);
+   };
 
-         win.delegate($compassContainer, 'a', 'mouseover', mouseOverEvtListener($compassContainer, $compassGraphic), false);
-         win.delegate($compassContainer, 'a', 'mouseout', mouseOutListener($compassContainer), false);
-     };
-
-     win.document.addEventListener('DOMContentLoaded', onDomContentLoaded);
-
+   win.document.addEventListener('DOMContentLoaded', onDomContentLoaded);
  }(window));
