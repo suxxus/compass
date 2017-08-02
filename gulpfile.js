@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     cssnext = require('postcss-cssnext'),
     customMedia = require('postcss-custom-media'),
     atImport = require('postcss-import'),
+    eslint = require('gulp-eslint'),
     watch = require('gulp-watch');
 
 gulp.task('clean:build', function() {
@@ -33,6 +34,13 @@ gulp.task('postcss', function() {
         .pipe(postcss(processors))
         .pipe(gulp.dest('./build'));
 
+});
+
+gulp.task('lint', () => {
+    return gulp.src('./src/**/main.js')
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('build', [
