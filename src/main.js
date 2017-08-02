@@ -11,15 +11,16 @@
      };
    };
 
-   var checkIfIsSmallDevice = function(minSize) {
-     return function() {
-       return win.document.documentElement.clientWidth <= minSize;
-     };
+   var checkMinDeviceSize = function(minSize) {
+     return win.document.documentElement.clientWidth <= minSize;
    };
 
    var mouseOverEvtListener = function(box, isSmallSize, $compassContainer, $compassGraphic) {
      return function(e) {
-       if (isSmallSize()) return;
+
+       e.preventDefault();
+
+       if (isSmallSize(751)) return;
 
        box($compassContainer.getBoundingClientRect())
          .map(function(containerRect) {
@@ -59,7 +60,7 @@
      win.delegate($qs('#compass-container'), 'a', 'mouseover',
        mouseOverEvtListener(
          Box,
-         checkIfIsSmallDevice(751),
+         checkMinDeviceSize,
          $qs('#compass-container'),
          $qs('#compass-container svg')
        ),
